@@ -1,21 +1,29 @@
-const usuarios = require("./usuarios.js");
-
-const opcionesBuscar = {
+const operaciones = require("./utils/utils.js");
+const opcionesBuscarPorId = {
     id: {
-        describe: "Argumento querecibe el id del usuario a buscar",
-        demand: true,
+        describe: "Argumento que recibe el id del usuario a buscar",
+        demand: false,
         alias: "i",
     },
 };
-const buscar = (argumentos) => {
-    let id = argumentos.id;
-    let usuario = usuarios.find((usuario) => usuario.id == id);
-    usuario ? console.log(usuario) : console.log("Usuario no encontrado.");
+const buscarId = async (argumentos) => {
+    try {
+        let id = argumentos.id;
+        if (id) {
+            let usuario = await operaciones.buscarPorId(id);
+            console.log(usuario);
+        } else {
+            let usuarios = await operaciones.buscar();
+            console.log(usuarios);
+        }
+    } catch (error) {
+        console.log(error);
+    }
 };
 
-let configBuscar = {
-    opciones: opcionesBuscar,
-    callback: buscar,
+let configBuscarId = {
+    opciones: opcionesBuscarPorId,
+    callback: buscarId,
 };
 
-module.exports = configBuscar;
+module.exports = configBuscarId;

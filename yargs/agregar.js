@@ -1,5 +1,4 @@
-const { v4: uuid } = require("uuid");
-const usuarios = require("./usuarios.js");
+const operaciones = require("./utils/utils.js");
 
 let opcionesAgregar = {
     nombre: {
@@ -19,18 +18,15 @@ let opcionesAgregar = {
     },
 };
 
-const agregar = (argumentos) => {
-    let id = uuid().slice(0, 6);
-    let { nombre, apellido, edad } = argumentos;
-    let nuevoUsuario = {
-        id,
-        nombre,
-        apellido,
-        edad: Number(edad),
-    };
-    usuarios.push(nuevoUsuario);
-    console.log("Su lista de usuarios se actualizó:");
-    console.table(usuarios);
+const agregar = async (argumentos) => {
+    try {
+        let { nombre, apellido, edad } = argumentos;
+
+        let respuesta = await operaciones.agregar(nombre, apellido, edad);
+        console.log(respuesta);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 let configAgregar = {
@@ -38,4 +34,4 @@ let configAgregar = {
     callback: agregar,
 };
 
-module.exports = configAgregar ;
+module.exports = configAgregar;

@@ -6,7 +6,7 @@ const configBuscar = require("./buscar");
 const argv = yargs
     .command(
         "buscar",
-        "Permite buscar usuario por ID",
+        "Permite buscar todos los usuarios o por id",
         configBuscar.opciones,
         configBuscar.callback
     )
